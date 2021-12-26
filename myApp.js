@@ -2,6 +2,11 @@ require('dotenv').config();
 
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+
+// The middleware to handle urlencoded data in POST requests
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 console.log('Hello World');
@@ -56,6 +61,33 @@ app.get('/now', function (req, res, next) {
         { time: req.time }
     );
 });
+
+// Get Route Parameter Input from the Client
+
+app.get("/:word/echo", (req, res) => {
+    const { word } = req.params;
+    res.json({
+        echo: word
+    });
+});
+
+// Get Query Parameter Input from the Client
+
+app.get("/name", function (req, res) {
+    var { first: firstName, last: lastName } = req.query;
+    res.json({
+        name: `${firstName} ${lastName}`
+    });
+});
+
+
+// Get data from post requests
+
+app.post("/name", function (req, res) {
+    var string = req.body.first + " " + req.body.last;
+    res.json({ name: string });
+});
+
 
 
 module.exports = app;
