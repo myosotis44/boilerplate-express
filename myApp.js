@@ -22,6 +22,16 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
 
+// Implement a Root-Level Request Logger Middleware
+
+app.use(function middleware(req, res, next) {
+    var string = req.method + " " + req.path + " - " + req.ip;
+    console.log(string);
+    next();
+});
+
+
+
 // Serve Static Assets -- Here all the statics assets needed by the application are placed (stylesheets, scripts, images...)
 
 app.use('/public', express.static(__dirname + '/public'));
