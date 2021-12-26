@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
 
+// Serve Static Assets -- Here all the statics assets needed by the application are placed (stylesheets, scripts, images...)
+
+app.use('/public', express.static(__dirname + '/public'));
+
 
 
 
